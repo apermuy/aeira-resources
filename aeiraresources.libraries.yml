@@ -1,0 +1,16 @@
+frontpagemap:
+  css:
+    layout:
+      https://unpkg.com/leaflet@1.5.1/dist/leaflet.css: { type: external, attributes: { async: false } }
+      https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css: { type: external, attributes: { async: false } }
+      https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css: { type: external, attributes: { async: false } }
+      https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css: { type: external, attributes: { async: false } }
+  js:
+    https://unpkg.com/leaflet@1.5.1/dist/leaflet.js: { type: external, attributes: { async: false } }
+    https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js: { type: external, attributes: { async: false } }
+    https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js: { type: external, attributes: { async: false } }
+    https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js: { type: external, attributes: { async: false } }
+    https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js: { type: external, attributes: { async: false } }
+    js/frontpagemap.js: {}
+  dependencies:
+    - core/jquery

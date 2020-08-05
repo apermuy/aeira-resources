@@ -1,0 +1,9 @@
+id: elementos
+plugin_id: elementos
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
