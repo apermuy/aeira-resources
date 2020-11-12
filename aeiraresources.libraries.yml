@@ -14,3 +14,4 @@ frontpagemap:
     js/frontpagemap.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.once

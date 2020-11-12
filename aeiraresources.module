@@ -9,13 +9,16 @@ use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\user\Entity\Role;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 
-function aeiraresources_preprocess_node(&$variables) {
-        // get a hold of the node object
-        $node = \Drupal::routeMatch()->getParameter('node');
-        if ($node) { // check we have a node object.
-          if ($node->id() == 3) { // look for a specific node id.
-            //attach the library.
-            $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
-          }
-        }
+function aeiraresources_preprocess_page(&$variables) {
+  // get a hold of the node object
+  /*$node = \Drupal::routeMatch()->getParameter('node');
+  if ($node) { // check we have a node object.
+    if ($node->id() == 2) { // look for a specific node id.
+      //attach the library.
+      $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
+    }
+  }
+  */
+  $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
 }
+

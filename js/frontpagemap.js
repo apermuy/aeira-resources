@@ -1,56 +1,57 @@
 (function ($, Drupal) {
     Drupal.behaviors.aeiraresources = {
       attach: function (context, settings) {
-        
+
         $.ajax({
           type: 'GET',
           url: '/api/1.0/elementos',
           async: false,
           cache: true,
           success: function (data) {
-              console.log(data);
+              console.log('Carga ok API');
               buildMap(data);
 
           },
           error: function (xhr, ajaxOptions, thrownError) {
               console.log(xhr.status);
               console.log(thrownError);
-          } 
+          }
         });
 
       /**
        * Build popup of marker
-       * @param {*} props 
+       * @param {*} props
        */
       function buildPopup(props) {
-        console.log(props.markerurl);
-        var content = '<div class="element-popup">';
-        content += '<h5><a href="'+ props.url+'">' + props.title + '</a></h5>';
-        content += '<div class="element-popup-content">' + props.concello + ' - ' + props.parroquia +
-                      '</div>';
-        content += '<div class="element-popup-body">' + props.classification  +  
-                      '</div>';
-        content += '</div>';
+        //console.log(props.markerurl);
+        var content = '<div class="element-popup"><h1>It works</h1></div>';
+
+        //content += '<h5><a href="'+ props.url+'">' + props.title + '</a></h5>';
+        //content += '<div class="element-popup-content">' + props.concello + ' - ' + props.parroquia +
+        //              '</div>';
+        //content += '<div class="element-popup-body">' + props.classification  +
+        //              '</div>';
+        //content += '</div>';
         return content;
       }
 
       /**
        * Build map
-       * @param {*} geoJsonData 
+       * @param {*} geoJsonData
        */
       function buildMap(geoJsonData){
         //Map declaration
         var frontpagemap = L.map('frontpagemap', {
-          center: [42.6622, -8.5381],
+          center: [42.8737, -8.6433],
           zoom: 15,
           fullscreenControl: true,
         });
-        
+        console.log(frontpagemap);
         //Geolocation
         $('#geolocate-position').on('click', function(){
           frontpagemap.locate({setView: true, maxZoom: 17});
         });
-      
+
         //Default layer
         let default_layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
           id: 'frontpagemap',
@@ -65,7 +66,7 @@
         });
         var layerControl = L.control.layers(null, null,{ collapsed: false });
         var layer_group = '';
-        
+
         geoJsonData.forEach(element => {
           //Foreach element (category) create group
           layer_group = L.featureGroup.subGroup(markerCluster);
@@ -84,8 +85,8 @@
         layerControl.addTo(frontpagemap);
        /**
          * Set behaviour on each feature of layer
-         * @param {*} feature 
-         * @param {*} layer 
+         * @param {*} feature
+         * @param {*} layer
         */
        function onEachFeatureMap(feature, layer) {
         let markerUrl = feature.properties.marker_url;
