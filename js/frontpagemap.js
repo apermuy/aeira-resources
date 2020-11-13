@@ -1,6 +1,6 @@
 (function ($, Drupal) {
     Drupal.behaviors.aeiraresources = {
-      attach: function (context, settings) {
+      attach: function (context) {
 
         $.ajax({
           type: 'GET',
@@ -25,6 +25,7 @@
       function buildPopup(props) {
         //console.log(props.markerurl);
         var content = '<div class="element-popup"><h1>It works</h1></div>';
+        console.log('Carga popups');
 
         //content += '<h5><a href="'+ props.url+'">' + props.title + '</a></h5>';
         //content += '<div class="element-popup-content">' + props.concello + ' - ' + props.parroquia +
@@ -53,7 +54,7 @@
         });
 
         //Default layer
-        let default_layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        let default_layer = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
           id: 'frontpagemap',
           attribution: '© CartoDB - © Openstreetmap',
           maxZoom: 19,
@@ -61,6 +62,7 @@
         }).addTo(frontpagemap);
 
         //Cluster and layer control
+
         var markerCluster = L.markerClusterGroup({
           maxClusterRadius: 90,
         });
@@ -75,7 +77,7 @@
           });
 
           if (element.features.length > 0){
-            var text_layer = '<p class="frontpagemap-layer-control-text">' + element.features[0].properties.classification + '</p>';
+            var text_layer = '<p class="frontpagemap-layer-control-text">' + element.features[0].properties.tipo + '</p>';
             layerControl.addOverlay(layer_group, text_layer);
             layer_group.addTo(frontpagemap);
           }
@@ -83,6 +85,8 @@
 
         markerCluster.addTo(frontpagemap);
         layerControl.addTo(frontpagemap);
+        console.log('Carga buildmap');
+
        /**
          * Set behaviour on each feature of layer
          * @param {*} feature

@@ -1,0 +1,7 @@
+aeiraresources.mapa:
+  path: '/mapa'
+  defaults:
+    _controller: '\Drupal\aeiraresources\Controller\AeiraResourcesController::aeiraMapa'
+    _title: 'Mapa Aeira'
+  requirements:
+    _permission: 'access content'
