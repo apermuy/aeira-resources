@@ -18,8 +18,7 @@ class AeiraResourcesController extends ControllerBase {
    */
   public function aeiraMapa() {
     return [
-      '#markup' => 'Hello, world <div id="frontpagemap"></div>',
+      '#markup' => '<div id="frontpagemap"></div>',
     ];
   }
-
 }

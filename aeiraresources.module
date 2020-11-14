@@ -19,6 +19,25 @@ function aeiraresources_preprocess_page(&$variables) {
     }
   }
   */
+  // Attach library
   $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
+  
+  // Make aeira settings available from JS
+  $config = \Drupal::config('aeiraresources.settings');
+  $variables['#attached']['drupalSettings']['lat'] = $config->get('aeira_lat');
+  $variables['#attached']['drupalSettings']['lon'] = $config->get('aeira_lon');
+  $variables['#attached']['drupalSettings']['zoom'] = $config->get('aeira_zoom');
 }
 
+  /**
+   * Implements hook_menu().
+   */
+  function aeiraresources_menu() {
+    $items['admin/config/aeiraresources/settings'] = array(
+      'title' => 'Aeira configuracións',
+      'description' => 'Permite personalizar as opcións xerais do sitio.',
+      'route_name' => 'aeiraresources.settings',
+    );
+
+    return $items;
+  }

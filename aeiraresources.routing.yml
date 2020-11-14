@@ -1,7 +1,15 @@
+aeiraresources.settings:
+  path: '/admin/config/aeiraresources/settings'
+  defaults:
+    _form: '\Drupal\aeiraresources\Form\aeiraresourcesSettingsForm'
+    _title: 'Configuración Aeira'
+  requirements:
+    _permission: 'administer site configuration'    
+
 aeiraresources.mapa:
   path: '/mapa'
   defaults:
     _controller: '\Drupal\aeiraresources\Controller\AeiraResourcesController::aeiraMapa'
-    _title: 'Mapa Aeira'
+    _title: 'Mapa'
   requirements:
     _permission: 'access content'

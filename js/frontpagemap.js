@@ -1,6 +1,6 @@
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
     Drupal.behaviors.aeiraresources = {
-      attach: function (context) {
+      attach: function (context, settings) {
 
         $.ajax({
           type: 'GET',
@@ -9,6 +9,8 @@
           cache: true,
           success: function (data) {
               console.log('Carga ok API');
+              var testVar = drupalSettings.aeiraresources_thing;
+              console.log('Valor de testVar:' + testVar);
               buildMap(data);
 
           },
@@ -43,8 +45,8 @@
       function buildMap(geoJsonData){
         //Map declaration
         var frontpagemap = L.map('frontpagemap', {
-          center: [42.8737, -8.6433],
-          zoom: 15,
+          center: [drupalSettings.lat, drupalSettings.lon],
+          zoom: 9,
           fullscreenControl: true,
         });
         console.log(frontpagemap);
@@ -54,7 +56,7 @@
         });
 
         //Default layer
-        let default_layer = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        let default_layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
           id: 'frontpagemap',
           attribution: '© CartoDB - © Openstreetmap',
           maxZoom: 19,
@@ -132,4 +134,4 @@
     }
    }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

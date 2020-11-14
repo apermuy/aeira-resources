@@ -1,6 +1,6 @@
 name: 'AEira resources'
 type: module
-description: 'Expoñer contido como endpoint REST para Leaflet'
+description: 'Expoñer contido como ndpoint REST para Leaflet'
 package: Web services
 core_version_requirement: ^9
 version: '1.0'
