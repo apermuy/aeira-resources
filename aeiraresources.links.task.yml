@@ -1,4 +1,0 @@
-aeiraresources.admin_settings_form_tab:
-  route_name: aeiraresources.admin_settings_form
-  title: Configuración
-  base_route: aeiraresources.admin_settings_form

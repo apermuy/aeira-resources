@@ -7,21 +7,21 @@ use \Drupal\file\Entity\File;
 use \Drupal\Core\Form;
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\user\Entity\Role;
+use \Drupal\Core\Url;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 
+
+/** 
+ * Implements hook_preprocess_page(). 
+ */ 
 function aeiraresources_preprocess_page(&$variables) {
-  // get a hold of the node object
-  /*$node = \Drupal::routeMatch()->getParameter('node');
-  if ($node) { // check we have a node object.
-    if ($node->id() == 2) { // look for a specific node id.
-      //attach the library.
-      $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
+  $current_url = Url::fromRoute('<current>');
+  $path = $current_url->toString();
+
+    if ($path == '/mapa') {
+        // Attach library
+        $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
     }
-  }
-  */
-  // Attach library
-  $variables['#attached']['library'][] = 'aeiraresources/frontpagemap';
-  
   // Make aeira settings available from JS
   $config = \Drupal::config('aeiraresources.settings');
   $variables['#attached']['drupalSettings']['lat'] = $config->get('aeira_lat');
@@ -29,15 +29,15 @@ function aeiraresources_preprocess_page(&$variables) {
   $variables['#attached']['drupalSettings']['zoom'] = $config->get('aeira_zoom');
 }
 
-  /**
-   * Implements hook_menu().
-   */
-  function aeiraresources_menu() {
-    $items['admin/config/aeiraresources/settings'] = array(
-      'title' => 'Aeira configuracións',
-      'description' => 'Permite personalizar as opcións xerais do sitio.',
-      'route_name' => 'aeiraresources.settings',
-    );
+/**
+ * Implements hook_menu().
+ */
+function aeiraresources_menu() {
+  $items['admin/config/aeiraresources/settings'] = array(
+    'title' => 'Aeira configuracións',
+    'description' => 'Permite personalizar as opcións xerais do sitio.',
+    'route_name' => 'aeiraresources.settings',
+  );
 
-    return $items;
-  }
+  return $items;
+}
