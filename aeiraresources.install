@@ -12,7 +12,7 @@ function aeiraresources_install() {
 
     $config = \Drupal::service('config.factory')->getEditable('aeiraresources.settings');
 
-    $config->set('aeira_lat', '35.1266')->save();
-    $config->set('aeira_lon', '-89.8867')->save();
-    $config->set('aeira_zoom', '4')->save();
+    $config->set('aeira_lat', '43.4421')->save();
+    $config->set('aeira_lon', '-8.2634')->save();
+    $config->set('aeira_zoom', '14')->save();
 }
