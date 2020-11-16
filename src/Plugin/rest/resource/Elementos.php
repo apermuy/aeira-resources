@@ -2,6 +2,7 @@
 
 namespace Drupal\aeiraresources\Plugin\rest\resource;
 
+use Drupal\Core\Session\AccountInterface;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -36,17 +37,15 @@ class Elementos extends ResourceBase {
         $db = \Drupal::database();
         $listado = array();
     
-        //Get all diferents "clasificacion" to generate one array foreach class
         $query = $db->query("SELECT tid, name FROM taxonomy_term_field_data WHERE vid = 'tipo'");
         $result = $query->fetchAll();
 
         $classification_items = array();
-        //Foeach element of $classification_items generate array of elements
+
         foreach($result as $row){
                
-            $query1 = $db->query("SELECT n.nid,nd.title as elemento,x.field_xeolocalizacion_elemento_lat as lat, x.field_xeolocalizacion_elemento_lon as lon, td.name as tipo , np.field_parroquia_elemento_target_id as tidparroquia FROM node n 
+            $query1 = $db->query("SELECT n.nid,nd.title as elemento,x.field_xeolocalizacion_elemento_lat as lat, x.field_xeolocalizacion_elemento_lon as lon, td.name as tipo FROM node n 
             INNER JOIN node_field_data nd ON n.nid = nd.nid 
-            INNER JOIN node__field_parroquia_elemento np ON n.nid = np.entity_id
             INNER JOIN node__field_xeolocalizacion_elemento x ON n.nid = x.entity_id
             INNER JOIN node__field_tipo_elemento t ON n.nid = t.entity_id
             INNER JOIN taxonomy_term_field_data td ON t.field_tipo_elemento_target_id = td.tid
@@ -72,10 +71,6 @@ class Elementos extends ResourceBase {
                     $lon = floatval($row1->lon);
                     $lan = floatval($row1->lat);
 
-                    // Parroquia
-                    $termParroquia = Term::load($row1->tidparroquia);
-                    $parroquia = $termParroquia->getName();
-
                     $type = 'Point';
                     $url = \Drupal::request()->getSchemeAndHttpHost() . \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $row1->nid);
                     $aux1 = array(
@@ -89,7 +84,6 @@ class Elementos extends ResourceBase {
                             'url'=> $url,
                             'title' => $row1->elemento,
                             'tipo' => $row1->tipo,
-                            'parroquia' => $parroquia
                          )
                     );
                     $aux['features'][] = $aux1;

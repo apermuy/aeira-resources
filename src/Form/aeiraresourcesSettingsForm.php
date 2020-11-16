@@ -43,7 +43,7 @@ class aeiraresourcesSettingsForm extends ConfigFormBase {
         '#type' => 'details',
         '#title' => $this->t('Configuración mapa'),
         '#open' => TRUE,
-      ];
+    ];
 
     $form['mapa']['aeira_lat'] = [
       '#type' => 'textfield',
@@ -67,8 +67,26 @@ class aeiraresourcesSettingsForm extends ConfigFormBase {
         '#description' => $this->t('Nivel de zoom inicial do mapa. Un valor maior, aumenta o zoom no mapa. <b>Valores</b>: Entre 1 e 19.'),
         '#required' => TRUE,
         '#default_value' => $config->get('aeira_zoom'),
-     ];  
- 
+     ];
+     $form['capa'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Configuración capa base para mapa'),
+      '#open' => FALSE,
+     ];
+     $form['capa']['aeira_base_map_uri'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('URL capa base para mapa'),
+      '#description' => $this->t('URL capa base para mapa. <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">Consultar os dispoñibles para Leaflet</a>.'),
+      '#required' => TRUE,
+      '#default_value' => $config->get('aeira_base_map_uri'),
+     ];
+     $form['capa']['aeira_base_map_attribution'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Atribución'),
+      '#description' => $this->t('Cadea de texto da atribución da capa base o do mapa.'),
+      '#required' => TRUE,
+      '#default_value' => $config->get('aeira_base_map_attribution'),
+     ];      
 
     return parent::buildForm($form, $form_state);
   }
@@ -84,6 +102,8 @@ class aeiraresourcesSettingsForm extends ConfigFormBase {
       ->set('aeira_lat', $form_state->getValue('aeira_lat'))
       ->set('aeira_lon', $form_state->getValue('aeira_lon'))
       ->set('aeira_zoom', $form_state->getValue('aeira_zoom'))
+      ->set('aeira_base_map_uri', $form_state->getValue('aeira_base_map_uri'))
+      ->set('aeira_base_map_attribution', $form_state->getValue('aeira_base_map_attribution'))
       ->save();
 
     parent::submitForm($form, $form_state);

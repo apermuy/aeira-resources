@@ -27,6 +27,8 @@ function aeiraresources_preprocess_page(&$variables) {
   $variables['#attached']['drupalSettings']['lat'] = $config->get('aeira_lat');
   $variables['#attached']['drupalSettings']['lon'] = $config->get('aeira_lon');
   $variables['#attached']['drupalSettings']['zoom'] = $config->get('aeira_zoom');
+  $variables['#attached']['drupalSettings']['map_uri'] = $config->get('aeira_base_map_uri');
+  $variables['#attached']['drupalSettings']['map_attribution'] = $config->get('aeira_base_map_attribution');
 }
 
 /**
@@ -34,6 +36,7 @@ function aeiraresources_preprocess_page(&$variables) {
  */
 function aeiraresources_menu() {
   $items['admin/config/aeiraresources/settings'] = array(
+    
     'title' => 'Aeira configuracións',
     'description' => 'Permite personalizar as opcións xerais do sitio.',
     'route_name' => 'aeiraresources.settings',

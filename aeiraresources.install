@@ -14,5 +14,7 @@ function aeiraresources_install() {
 
     $config->set('aeira_lat', '43.4421')->save();
     $config->set('aeira_lon', '-8.2634')->save();
-    $config->set('aeira_zoom', '14')->save();
+    $config->set('aeira_zoom', '7')->save();
+    $config->set('aeira_base_map_uri', 'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png')->save();
+    $config->set('aeira_base_map_attribution', '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors')->save();
 }

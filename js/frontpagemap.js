@@ -1,16 +1,13 @@
 (function ($, Drupal, drupalSettings) {
     Drupal.behaviors.aeiraresources = {
       attach: function (context, settings) {
-
+ 
         $.ajax({
           type: 'GET',
           url: '/api/1.0/elementos',
           async: false,
           cache: true,
           success: function (data) {
-              console.log('Carga ok API');
-              var testVar = drupalSettings.aeiraresources_thing;
-              console.log('Valor de testVar:' + testVar);
               buildMap(data);
 
           },
@@ -25,16 +22,11 @@
        * @param {*} props
        */
       function buildPopup(props) {
-        //console.log(props.markerurl);
-        var content = '<div class="element-popup"><h1>It works</h1></div>';
-        console.log('Carga popups');
-
-        //content += '<h5><a href="'+ props.url+'">' + props.title + '</a></h5>';
-        //content += '<div class="element-popup-content">' + props.concello + ' - ' + props.parroquia +
-        //              '</div>';
-        //content += '<div class="element-popup-body">' + props.classification  +
-        //              '</div>';
-        //content += '</div>';
+          var content = '<div class="element-popup">';
+          content += '<h5><a href="'+ props.url+'">' + props.title + '</a></h5>';
+          content += '<div class="element-popup-content"></div>';
+          content += '<div class="element-popup-body">' + props.tipo  +  '</div>';
+          content += '</div>';
         return content;
       }
 
@@ -46,7 +38,7 @@
         //Map declaration
         var frontpagemap = L.map('frontpagemap', {
           center: [drupalSettings.lat, drupalSettings.lon],
-          zoom: 9,
+          zoom: drupalSettings.zoom,
           fullscreenControl: true,
         });
         console.log(frontpagemap);
@@ -55,10 +47,12 @@
           frontpagemap.locate({setView: true, maxZoom: 17});
         });
 
+       
+        
         //Default layer
-        let default_layer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        let default_layer = L.tileLayer(drupalSettings.map_uri, {
           id: 'frontpagemap',
-          attribution: '© CartoDB - © Openstreetmap',
+          attribution: drupalSettings.map_attribution,
           maxZoom: 19,
           minZoom: 3,
         }).addTo(frontpagemap);
@@ -102,7 +96,8 @@
           var finalMarker = '';
           if (markerUrl != '') {
             var customMarker = L.icon({
-              iconUrl: feature.properties.markerurl,
+              //  iconUrl: feature.properties.markerurl,
+              iconUrl: 'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',
               iconSize:     [25, 40], // Tamaño da icona
               iconAnchor:   [14, 34], // point of the icon which will correspond to marker's location
               popupAnchor:  [0, -34] // point from which the popup should open relative to the iconAnchor
