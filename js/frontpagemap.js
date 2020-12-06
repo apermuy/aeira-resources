@@ -81,7 +81,6 @@
 
         markerCluster.addTo(frontpagemap);
         layerControl.addTo(frontpagemap);
-        console.log('Carga buildmap');
 
        /**
          * Set behaviour on each feature of layer
@@ -96,8 +95,8 @@
           var finalMarker = '';
           if (markerUrl != '') {
             var customMarker = L.icon({
-              //  iconUrl: feature.properties.markerurl,
-              iconUrl: 'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',
+              iconUrl: feature.properties.icon,
+              //iconUrl: 'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',
               iconSize:     [25, 40], // Tamaño da icona
               iconAnchor:   [14, 34], // point of the icon which will correspond to marker's location
               popupAnchor:  [0, -34] // point from which the popup should open relative to the iconAnchor

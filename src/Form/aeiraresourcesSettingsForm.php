@@ -83,6 +83,8 @@ class aeiraresourcesSettingsForm extends ConfigFormBase {
      $form['capa']['aeira_base_map_attribution'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Atribución'),
+      '#size' => 60,
+      '#maxlength' => 192,
       '#description' => $this->t('Cadea de texto da atribución da capa base o do mapa.'),
       '#required' => TRUE,
       '#default_value' => $config->get('aeira_base_map_attribution'),

@@ -57,16 +57,19 @@ class Elementos extends ResourceBase {
             $aux['features'] = array();
             $type = 'Point';
 
-            // Obter fid para tipoloxía
+            // Obter tid para tipoloxía
             $tipoloxia = Term::load($row->tid);
            
             // Xerar url da icona
-            /*
-            if(!empty($tipoloxia->get('field_icona_tipoloxia_elemento')->getValue())){
-                $urlfile = File::load($tipoloxia->get('field_icona_tipoloxia_elemento')->getValue()[0]['target_id']);
+            
+            if(is_string($tipoloxia->get('field_icona_tipo')->getValue()[0]['target_id'])){
+                $urlfile = File::load($tipoloxia->get('field_icona_tipo')->getValue()[0]['target_id']);
                 $urlicona = file_create_url($urlfile->get('uri')->getString());
-            }*/
-
+            }
+            else{
+                $urlicona = '/profiles/contrib/aeira-profile/content/demo/images/marker-icon.png';
+            }
+            
                 foreach($result1 as $row1){
                     $lon = floatval($row1->lon);
                     $lan = floatval($row1->lat);
@@ -83,6 +86,7 @@ class Elementos extends ResourceBase {
                             'nid' => $row1->nid,
                             'url'=> $url,
                             'title' => $row1->elemento,
+                            'icon' => $urlicona,
                             'tipo' => $row1->tipo,
                          )
                     );
